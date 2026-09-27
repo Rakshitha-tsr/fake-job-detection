@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Job Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Fake Job Detection System</h1>
+
+    <p class="subtitle">
+        Check whether a job posting appears real, suspicious or fake.
+    </p>
+
+    <form method="POST">
+
+        <label>Job Title</label>
+        <input type="text" name="job_title"
+               placeholder="Example: Python Developer" required>
+
+        <label>Company Name</label>
+        <input type="text" name="company"
+               placeholder="Example: ABC Technologies" required>
+
+        <label>Salary</label>
+        <input type="text" name="salary"
+               placeholder="Example: ₹30,000 per month" required>
+
+        <label>Job Description</label>
+        <textarea name="description"
+                  placeholder="Enter the job description"
+                  required></textarea>
+
+        <label>Does the job ask for a registration/payment fee?</label>
+
+        <select name="registration_fee">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+
+        <label>Company/Recruiter Email</label>
+        <input type="email" name="email"
+               placeholder="Example: hr@company.com">
+
+        <button type="submit">
+            Check Job
+        </button>
+
+    </form>
+
+    {% if result %}
+
+    <div class="result">
+
+        <h2>Result: {{ result }}</h2>
+
+        <p>
+            <strong>Risk Level:</strong> {{ risk }}
+        </p>
+
+        <p>
+            <strong>Risk Score:</strong> {{ score }}
+        </p>
+
+        <h3>Reasons:</h3>
+
+        <ul>
+            {% for reason in reasons %}
+            <li>{{ reason }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
